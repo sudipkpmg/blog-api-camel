@@ -1,0 +1,155 @@
+openapi: 3.0.0
+info:
+  title: Blog Posts API
+  version: 1.0.0
+  description: |
+    This is a partial example API for blog posts using OpenApi Specification.
+  contact:
+    name: Sudip Bhattacharya
+    email: sudipbhattacharya@kpmg.com
+servers:
+  - url: http://localhost:8080
+paths:
+  /posts:
+    get:
+      tags:
+        - Posts
+      summary: Return all the posts
+      description: Return all the posts that are in our blog.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Posts'
+              example:
+                -
+                  id: '1'
+                  userId: sudip
+                  title: My first blog
+                  body: This is the content of the first blog
+                -
+                  id: '2'
+                  userId: sudip
+                  title: My second blog
+                  body: This is the content of the second blog
+          description: An array of blog posts in JSON format
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceError'
+              example:
+                code: '500'
+                message: Service error
+          description: Service error
+    post:
+      tags:
+        - Posts
+      summary: Blog post successfully created
+      description: Blog post has been successfully created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostCreationRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostCreationResponse'
+              example:
+                id: '1'
+          description: Post successfully created
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceError'
+              example:
+                code: '400'
+                message: No information provided
+          description: No information provided
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceError'
+              example:
+                code: '500'
+                message: Service error
+          description: Service error
+components:
+  schemas:
+    Posts:
+      description: An array of post objects.
+      type: array
+      items:
+        $ref: '#/components/schemas/Post'
+      example:
+        -
+          userId: 1
+          id: 1
+          title: First post
+          body: This is the first post body.
+        -
+          userId: 1
+          id: 2
+          title: Second post
+          body: The second post content.
+        -
+          userId: 1
+          id: 3
+          title: Another post
+          body: Other post content
+    Post:
+      required:
+        - id
+        - userId
+        - title
+        - body
+      type: object
+      properties:
+        id:
+          description: The post id.
+          type: string
+        userId:
+          description: The post userId.
+          type: string
+        title:
+          description: The title of the post
+          type: string
+        body:
+          description: The body content of the post
+          type: string
+      example:
+        userId: 1
+        id: 1
+        title: The First Post
+        body: we are building a blog post API using OpenAPI Specification.
+    PostCreationRequest:
+      required:
+        - userId
+        - title
+        - body
+      type: object
+      properties:
+        userId:
+          description: The post userId.
+          type: string
+        title:
+          description: The title of the post
+          type: string
+        body:
+          description: The body content of the post
+          type: string
+    PostCreationResponse:
+      type: object
+      properties:
+        id:
+          type: string
+      example:
+        id: '100'
+      description: Post has been successfully created

@@ -1,0 +1,19 @@
+camel:
+    component:
+        servlet:
+            mapping:
+                contextPath: /*
+    springboot:
+        name: BlogApiCamel
+endpoints:
+    enabled: true
+    health:
+        enabled: true
+logging:
+    config: classpath:logback.xml
+runstatus: Blog API Service is running
+server:
+    port: 8080
+spring:
+    application:
+        name: blog-api-camel
