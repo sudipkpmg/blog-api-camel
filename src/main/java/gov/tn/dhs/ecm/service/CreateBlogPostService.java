@@ -4,6 +4,7 @@ import gov.tn.dhs.ecm.model.Blog;
 import gov.tn.dhs.ecm.model.Post;
 import gov.tn.dhs.ecm.model.PostCreationRequest;
 import gov.tn.dhs.ecm.model.PostCreationResponse;
+import gov.tn.dhs.ecm.util.JsonUtil;
 import org.apache.camel.Exchange;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
