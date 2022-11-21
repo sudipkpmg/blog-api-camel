@@ -16,6 +16,7 @@ public class CreateBlogPostService extends BaseService {
 
     public void process(Exchange exchange) {
         PostCreationRequest postCreationRequest = exchange.getIn().getBody(PostCreationRequest.class);
+        logger.info("postCreationRequest = {}", JsonUtil.toJson(postCreationRequest));
         String userId = postCreationRequest.getUserId();
         String title = postCreationRequest.getTitle();
         String body = postCreationRequest.getBody();
@@ -31,6 +32,7 @@ public class CreateBlogPostService extends BaseService {
             Blog.addPost(id, post);
             PostCreationResponse postCreationResponse = new PostCreationResponse();
             postCreationResponse.setId(id);
+            logger.info("postCreationResponse = {}", JsonUtil.toJson(postCreationResponse));
             setupResponse(exchange, "200", postCreationResponse);
         } catch (Exception e) {
             setupError("500", "Service error");
