@@ -22,6 +22,7 @@ public class GetBlogPostsService extends BaseService {
                 Post post = Blog.getPost(id);
                 posts.add(post);
             }
+            logger.info("Number of entries = {}", posts.size());
             setupResponse(exchange, "200", posts);
         } catch (Exception e) {
             setupError("500", "Service error");
